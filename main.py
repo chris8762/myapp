@@ -2,7 +2,7 @@ import flask
 import random
 import requests
 import string
-# mail za chatGPT random acc hohelo4089@intady.com
+
 
 
 
