@@ -1,8 +1,7 @@
-import flask
+from flask import Flask, render_template, jsonify, request
 import random
 import requests
 import string
-
 
 
 
@@ -15,6 +14,15 @@ def index():
 def loginOrRegister():
     return render_template("login.html")
 
-#testi v browserju
+#glavne funkcije
+@app.route("/randomRecipe")
+def randomRecipe():
+    return render_template("randomRecipe.html")
+
+
+#testiram commit
+
+
+
 
 app.run(debug = True)
