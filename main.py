@@ -15,6 +15,6 @@ def index():
 def loginOrRegister():
     return render_template("login.html")
 
-
+#test
 
 app.run(debug = True)
