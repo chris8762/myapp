@@ -15,6 +15,6 @@ def index():
 def loginOrRegister():
     return render_template("login.html")
 
-#testi
+#testi v browserju
 
 app.run(debug = True)
