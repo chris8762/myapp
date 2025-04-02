@@ -19,7 +19,27 @@ def loginOrRegister():
 def randomRecipe():
     return render_template("randomRecipe.html")
 
+@app.route("/getRandomRecipe")
+def getRandomRecipe():
+    return "x"
 
+@app.route("/getHladilnik")
+def getHladilnik():
+    return "x"
+
+
+@app.route("/hladilnik")
+def hladilnik():
+    return render_template("hladilnik.html")
+
+@app.route("/getKalkulator")
+def getKalkulator():
+    return "x"
+
+
+@app.route("/kalkulator")
+def kalkulator():
+    return render_template("kalkulator.html")
 #testiram commit
 
 
