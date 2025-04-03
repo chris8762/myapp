@@ -58,3 +58,22 @@ Združiti meni najljubše funkcije, ki bi jih uporabljal pri pripravi jedi.
 - Instagram, Facebook account.
 - Plačan članek, ki predstavlja funkcionalnosti strani.
 - Mogoče Google Ads.
+
+## SWOT analiza:
+| **PREDNOSTI** | **SLABOSTI** |
+|--------------|------------|
+| **Spletno stran lahko uporabljajo vsi** | **Konkurenca na trgu strani in knjig z recepti** |
+| **Enostavna uporaba in user friendly platforma** | **Redno je treba dodajati vsebino** |
+| **Možnosti shranjevanja receptov, komentiranja, ocenjevanja** | **Potrebno je oglaševanje strani** |
+| **Potencial za partnerstvo in oglaševanje** | **Nakup dobre domene in vzdrževanja strani** |
+| **PRILOŽNOSTI** | **GROŽNJE** |
+|--------------|------------|
+| **Naraščajoče zanimanje za zdravo prehrano in domačo kuho** | **Močne strani, ki že obstajajo (kulinarika.net in okusno.je)** |
+| **Sodelovanje s kuharskimi blogerji** | **Trendi prehrane se spreminjajo** |
+| **Premium funkcije in oglasi na strani** | **Avtorske pravice receptov in receptov blogerjev** |
+| **Razvoj mobilne aplikacije, za lažjo uporabo** |  |
+| **Širitev na tuje trge s prevodom strani in receptov na njej** |  |
+
+
+
+
