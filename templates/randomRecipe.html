@@ -7,24 +7,40 @@
 </head>
 <body>
     
-    <h1>Vnesite zeljene kriterije</h1>
-
     <a href="/">Domov</a>
+
+    <h1>Dobite nakljucni recept</h1>
+
+    <input type="text" id="sestavine" placeholder="Sestavine">
+    <input type="text" id="vrsta" placeholder="Vrsta kuhinje">
+    <button onclick="getRandomRecipe()">Dobi recept</button>
+
+    <div id="output1"></div>
+    <div id="output2"></div>
+    <div id="output3"></div>
+    <div id="output4"><img src="output4" alt=""></div>
+
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        function randomRecipe() {
+        function getRandomRecipe() {
             var output = document.getElementById("output");
 
             $.ajax({
-                url: "/randomRecipe",
+                url: "/getRandomRecipe",
                 data: {
-                    stranice: stranice.value,
-                    met: met.value
+                    sestavine: sestavine.value,
+                    vrsta: vrsta.value
                 },
                 success: function (result) {
-                    output.innerHTML = "Result: " + result;
                     
+                    output1.innerHTML = result.ime;
+                    output2.innerHTML = result.slika;
+                    output3.innerHTML = result.ingredients;
+                    output4.innerHTML = result.navodila;
+                    
+
                 }
             });
         }
