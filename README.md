@@ -32,6 +32,7 @@
   - Čas priprave.
   - Zahtevnost priprave.
 - **Stran za pregled kuharskih tečajev.**
+- Informacije o hranilni vrednosti
 
 ## Priložnost za zaslužek:
 - Za nekaj € na mesec boš imel dostop do funkcije iskanja jedi glede na sestavine.
