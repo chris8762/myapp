@@ -73,6 +73,17 @@ def kalkulator():
     return render_template("kalkulator.html")
 #testiram commit
 
+@app.route("/getAi")
+def getAi():
+    return "x"
+
+
+@app.route("/ai")
+def ai():
+    return render_template("ai_pomocnik.html")
+#testiram commit
+
+
 
 
 
