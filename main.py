@@ -71,7 +71,7 @@ def getKalkulator():
 @app.route("/kalkulator")
 def kalkulator():
     return render_template("kalkulator.html")
-#testiram commit
+
 
 @app.route("/getAi")
 def getAi():
@@ -81,9 +81,37 @@ def getAi():
 @app.route("/ai")
 def ai():
     return render_template("ai_pomocnik.html")
-#testiram commit
 
 
+
+@app.route("/getZdravi")
+def getZdravi():
+    proteini = request.args.get("proteini")
+    mascobe = request.args.get("mascobe")
+    kalorije = request.args.get("kalorije")
+
+
+    #print(proteini,mascobe,kalorije)
+    api2 = f"c3903212f7594031bab178a65e5940a1"
+    # testni url = f"https://api.spoonacular.com/recipes/complexSearch?query={sestavine}&cuisine={vrsta}&apiKey={api2}"
+    url2 = f"https://api.spoonacular.com/recipes/complexSearch?minProtein={proteini}&maxCalories={kalorije}&maxFat={mascobe}&apiKey={api2}"
+    call = requests.get(url2).json()
+    
+    ime = call["results"][0]["title"]
+    slika = call["results"][0]["image"]
+    id = call["results"][0]["id"]
+    #print(ime, slika, id)
+
+    #kako dobit recept preko ID-jev
+    recept_url = f"https://api.spoonacular.com/recipes/{id}/information?apiKey={api2}"
+    recept = requests.get(recept_url).json()
+    print(recept)
+    return "x"
+
+
+@app.route("/zdravi")
+def zdravi():
+    return render_template("zdravi_obrok.html")
 
 
 

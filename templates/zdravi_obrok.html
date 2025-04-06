@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zdravi obrok</title>
+</head>
+
+<body>
+    <a href="/">Domov</a>
+
+    <h1>Zdravi obroki</h1>
+    <h2>Vnesite kriterije za svoj obrok</h2>
+
+
+    <!--input za stevilo proteinov, maximum mascob in max ogljikovih hidratov-->
+    <input type="text" id="proteini" placeholder="Proteini v g">
+    <input type="text" id="mascobe" placeholder="Mascobe v g">
+    <input type="text" id="kalorije" placeholder="Kalorije">
+    <button onclick="getZdravi()">Dobi recept</button>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function getZdravi() {
+            var output = document.getElementById("output");
+
+            $.ajax({
+                url: "getZdravi",
+                data: {
+                    proteini: proteini.value,
+                    mascobe: mascobe.value,
+                    kalorije: kalorije.value
+                },
+                success: function (result) {
+                    output.innerHTML = result;
+                    
+                }
+            });
+        }
+    </script>
+    
+
+
+
+</body>
+</html>
