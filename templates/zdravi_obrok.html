@@ -13,13 +13,27 @@
     <h2>Vnesite kriterije za svoj obrok</h2>
 
 
-    <!--input za stevilo proteinov, maximum mascob in max ogljikovih hidratov-->
-    <input type="text" id="proteini" placeholder="Proteini v g">
-    <input type="text" id="mascobe" placeholder="Mascobe v g">
-    <input type="text" id="kalorije" placeholder="Kalorije">
+    <!--input za stevilo proteinov, maximum mascob in max ogljikovih hidrato sv-->
+    <input type="text" id="proteini" placeholder="Min proteini v g">
+    <input type="text" id="mascobe" placeholder="Min ascobe v g">
+    <input type="text" id="kalorije" placeholder="Max kcal">
     <button onclick="getZdravi()">Dobi recept</button>
 
 
+    <p>*Ce pustite polje prazno se vrednosti nastavijo na:</p>
+
+    <table>
+        <th>Min proteini</th>
+        <th>Min mascobe</th>
+        <th>Max kcal</th>
+
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>800</td>
+
+        </tr>
+    </table>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>

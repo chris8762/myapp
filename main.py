@@ -1,8 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 import random
 import requests
-import string
-
 
 
 app = Flask(__name__)
@@ -90,15 +88,24 @@ def getZdravi():
     mascobe = request.args.get("mascobe")
     kalorije = request.args.get("kalorije")
 
+    if proteini == "":
+        proteini = 0
+
+    if mascobe == "":
+        mascobe = 0
+
+    if kalorije == "":
+        kalorije = 800
+
 
     #print(proteini,mascobe,kalorije)
     api2 = f"c3903212f7594031bab178a65e5940a1"
     # testni url = f"https://api.spoonacular.com/recipes/complexSearch?query={sestavine}&cuisine={vrsta}&apiKey={api2}"
-    url2 = f"https://api.spoonacular.com/recipes/complexSearch?minProtein={proteini}&maxCalories={kalorije}&maxFat={mascobe}&apiKey={api2}"
+    url2 = f"https://api.spoonacular.com/recipes/complexSearch?minProtein={proteini}&maxCalories={kalorije}&minFat={mascobe}&apiKey={api2}"
     call = requests.get(url2).json()
     
-    ime = call["results"][0]["title"]
-    slika = call["results"][0]["image"]
+    #ime = call["results"][0]["title"]
+    #slika = call["results"][0]["image"]
     id = call["results"][0]["id"]
     #print(ime, slika, id)
 
@@ -106,6 +113,10 @@ def getZdravi():
     recept_url = f"https://api.spoonacular.com/recipes/{id}/information?apiKey={api2}"
     recept = requests.get(recept_url).json()
     print(recept)
+    
+    
+    
+    
     return "x"
 
 
