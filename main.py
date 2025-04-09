@@ -125,5 +125,17 @@ def zdravi():
     return render_template("zdravi_obrok.html")
 
 
+@app.route("/getTecaji")
+def getTecaji():
+    return "x"
+
+
+@app.route("/tecaji")
+def tecaji():
+    return render_template("kuharski_tecaji.html")
+
+
+
+
 
 app.run(debug = True)
