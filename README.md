@@ -76,13 +76,13 @@ Združiti meni najljubše funkcije, ki bi jih uporabljal pri pripravi jedi.
 | **Širitev na tuje trge s prevodom strani in receptov na njej** |  |
 
 ## MVP:
-- AI help
 - Random recept
 - Zdravi recepti
 - Iskanje po sestavinah iz hladilnika
 - Kalkulator sestavin
 - Stran s povezavami na kuharske tečaje
 - Login in register
+- AI help
 - Hranilne vrednosti sestavine
 - Filtri receptov za čas priprave in zahtevnost
 
