@@ -75,6 +75,15 @@ Združiti meni najljubše funkcije, ki bi jih uporabljal pri pripravi jedi.
 | **Razvoj mobilne aplikacije, za lažjo uporabo** |  |
 | **Širitev na tuje trge s prevodom strani in receptov na njej** |  |
 
-
+## MVP:
+- Random recept
+- Zdravi recepti
+- Iskanje po sestavinah iz hladilnika
+- Kalkulator sestavin
+- Stran s povezavami na kuharske tečaje
+- Login in register
+- AI help
+- Hranilne vrednosti sestavine
+- Filtri receptov za čas priprave in zahtevnost
 
 
