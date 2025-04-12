@@ -19,7 +19,6 @@
     <input type="text" id="kalorije" placeholder="Max kcal">
     <button onclick="getZdravi()">Dobi recept</button>
 
-
     <p>*Ce pustite polje prazno se vrednosti nastavijo na:</p>
 
     <table>
@@ -35,6 +34,9 @@
         </tr>
     </table>
 
+    <div id="output"></div>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         function getZdravi() {
@@ -48,7 +50,8 @@
                     kalorije: kalorije.value
                 },
                 success: function (result) {
-                    output.innerHTML = result;
+                    output.innerHTML = result.recipes;
+
                     
                 }
             });

@@ -104,21 +104,39 @@ def getZdravi():
     url2 = f"https://api.spoonacular.com/recipes/complexSearch?minProtein={proteini}&maxCalories={kalorije}&minFat={mascobe}&apiKey={api2}"
     call = requests.get(url2).json()
     
+    #print(call)
     #ime = call["results"][0]["title"]
     #slika = call["results"][0]["image"]
-    id = call["results"][0]["id"]
+    #id = call["results"][0]["id"]
     #print(ime, slika, id)
 
-    #kako dobit recept preko ID-jev
-    recept_url = f"https://api.spoonacular.com/recipes/{id}/information?apiKey={api2}"
-    recept = requests.get(recept_url).json()
-    print(recept)
-    
-    
-    
-    
-    return "x"
+    sez_recipes = []
 
+    for recipe in call["results"]:
+        recipe_info = {
+            "id": recipe["id"],
+            "title": recipe["title"],
+            "calories": None,
+            "protein": None
+        }
+
+        for nutrient in recipe["nutrition"]["nutrients"]:
+            if nutrient["name"] == "Calories":
+                recipe_info["calories"] = nutrient["amount"]
+            if nutrient["name"] == "Protein":
+                recipe_info["protein"] = nutrient["amount"]
+
+        sez_recipes.append(recipe_info)
+
+    print(sez_recipes)
+
+    return jsonify({'recipes': sez_recipes})
+
+
+    #kako dobit recept preko ID-jev
+    #recept_url = f"https://api.spoonacular.com/recipes/{id}/information?apiKey={api2}"
+    #recept = requests.get(recept_url).json()
+    #print(recept)
 
 @app.route("/zdravi")
 def zdravi():
@@ -134,7 +152,14 @@ def getTecaji():
 def tecaji():
     return render_template("kuharski_tecaji.html")
 
+@app.route("/getDodajRecept")
+def getDodajRecept():
+    return "x"
 
+
+@app.route("/dodajRecept")
+def dodajRecept():
+    return render_template("dodaj_recept.html")
 
 
 

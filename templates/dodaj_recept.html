@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodajanje recepta</title>
+
+    <a href="/">Domov</a>
+    <h1>Dodajte svoj recept</h1>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function getAi() {
+            var output = document.getElementById("output");
+
+            $.ajax({
+                url: "/getDice",
+                data: {
+                    stranice: stranice.value,
+                    met: met.value
+                },
+                success: function (result) {
+                    output.innerHTML = "Result: " + result;
+                    
+                }
+            });
+        }
+
+
+</head>
+<body>
+    
+</body>
+</html>
