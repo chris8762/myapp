@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informacije o sestavinah</title>
+</head>
+<body>
+    
+    <a href="/">Domov</a>
+    <h1>Dobite informacije o sestavinah</h1>
+
+    <input type="text" id="sestavina" placeholder="Vnesite sestavino">
+    <button onclick="getInfo()">Dobi informacije</button>
+
+
+    <div id="output"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function getInfo() {
+            var output = document.getElementById("output");
+
+            $.ajax({
+                url: "getInfo",
+                data: {
+                    sestavina: sestavina.value,
+
+                },
+                success: function (result) {
+                    output.innerHTML = result;
+
+                    
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

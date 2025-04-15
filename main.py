@@ -128,7 +128,7 @@ def getZdravi():
 
         sez_recipes.append(recipe_info)
 
-    print(sez_recipes)
+    #print(sez_recipes)
 
     return jsonify({'recipes': sez_recipes})
 
@@ -162,5 +162,28 @@ def dodajRecept():
     return render_template("dodaj_recept.html")
 
 
+@app.route("/getInfo")
+def getInfo():
 
+    #api 6fea24f6376a45eb9033908b8bbc7579
+    api_key = "6fea24f6376a45eb9033908b8bbc7579" 
+    sestavina = request.args.get("sestavina")
+
+    url = f"https://api.spoonacular.com/food/ingredients/search?query={sestavina}&apiKey={api_key}"
+    call = requests.get(url).json()
+
+    id_sestavine = call["results"][0]["id"]
+    print(call["results"][0]["id"])
+
+    url_info = f"https://api.spoonacular.com/food/ingredients/{id_sestavine}/information?amount=1&apiKey={api_key}"
+
+    call_info = requests.get(url_info).json()
+
+    print(call_info)
+    return "x"
+
+
+@app.route("/info")
+def info():
+    return render_template("info_sestavine.html")
 app.run(debug = True)
