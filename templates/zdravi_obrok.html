@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zdravi obrok</title>
+    <style>
+        body {background-color: rgb(69, 71, 70); color: white;}
+
+    </style>
 </head>
 
 <body>
@@ -39,23 +43,40 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        function getZdravi() {
-            var output = document.getElementById("output");
+function getZdravi() {
+    var output = document.getElementById("output");
 
-            $.ajax({
-                url: "getZdravi",
-                data: {
-                    proteini: proteini.value,
-                    mascobe: mascobe.value,
-                    kalorije: kalorije.value
-                },
-                success: function (result) {
-                    output.innerHTML = recipes;
+    $.ajax({
+        url: "getZdravi",
+        data: {
+            proteini: proteini.value,
+            mascobe: mascobe.value,
+            kalorije: kalorije.value
+        },
+        success: function (result) {
+            var recipes = result.recipes;
+            var formattedOutput = "<ul>";
 
-                    
-                }
+            recipes.forEach(function(recipe) {
+                var roundedProtein = recipe.protein.toFixed(1);
+                var roundedCalories = recipe.calories.toFixed(1);
+
+                formattedOutput += "<li>";
+                formattedOutput += "<strong>" + recipe.title + "</strong><br>";
+                formattedOutput += "Recipe ID: " + recipe.id + "<br>";
+                formattedOutput += "Protein: " + roundedProtein + "g<br>";
+                formattedOutput += "Calories: " + roundedCalories + " kcal<br>";
+                formattedOutput += "</li>";
             });
+
+            formattedOutput += "</ul>";
+            output.innerHTML = formattedOutput;
         }
+    });
+}
+
+
+
     </script>
     
 

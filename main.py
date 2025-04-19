@@ -103,12 +103,6 @@ def getZdravi():
     # testni url = f"https://api.spoonacular.com/recipes/complexSearch?query={sestavine}&cuisine={vrsta}&apiKey={api2}"
     url2 = f"https://api.spoonacular.com/recipes/complexSearch?minProtein={proteini}&maxCalories={kalorije}&minFat={mascobe}&apiKey={api2}"
     call = requests.get(url2).json()
-    
-    #print(call)
-    #ime = call["results"][0]["title"]
-    #slika = call["results"][0]["image"]
-    #id = call["results"][0]["id"]
-    #print(ime, slika, id)
 
     sez_recipes = []
 
@@ -128,7 +122,7 @@ def getZdravi():
 
         sez_recipes.append(recipe_info)
 
-    #print(sez_recipes)
+    print(sez_recipes)
 
     return jsonify({'recipes': sez_recipes})
 
@@ -173,17 +167,57 @@ def getInfo():
     call = requests.get(url).json()
 
     id_sestavine = call["results"][0]["id"]
-    print(call["results"][0]["id"])
+    #print(call["results"][0]["id"])
 
     url_info = f"https://api.spoonacular.com/food/ingredients/{id_sestavine}/information?amount=1&apiKey={api_key}"
 
     call_info = requests.get(url_info).json()
 
-    print(call_info)
-    return "x"
+    sez_info = [
+        "Protein",
+        "Carbohydrates",
+        "Fiber",
+        "Fat",
+        "Sugar",
+        "Calories",
+        "Vitamin C",
+        "Vitamin A",
+        "Vitamin B6",
+        "Vitamin B12",
+        "Iron",
+        "Magnesium",
+        "Potassium",
+        "Calcium"
+    ]
+
+    nutrition = {
+        "name": call_info["name"]
+    }
+
+    for item in call_info["nutrition"]["nutrients"]:
+        if item["name"] in sez_info:
+            nutrition[item["name"]] = {
+                "amount": item["amount"],
+                "unit": item["unit"]
+            }
+
+    print(nutrition)
+    return jsonify(nutrition)
 
 
 @app.route("/info")
 def info():
     return render_template("info_sestavine.html")
+
+
+
+
+@app.route("/getIdSearch")
+def getIdSearch():
+    return "x"
+
+
+@app.route("/idSearch")
+def idSearch():
+    return render_template("id_search.html")
 app.run(debug = True)
