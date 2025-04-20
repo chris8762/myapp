@@ -13,22 +13,54 @@
 
     <h1>Vnesi sestavine iz svojega hladilnika</h1>
 
-    <a href="/">Domov</a>
+    <a href="/">Domov</a><br>
+    <br>
+
+
+    <input type="text" id="sestavina1" placeholder="Sestavina 1"><br>
+    <input type="text" id="sestavina2" placeholder="Sestavina 2"><br>
+    <input type="text" id="sestavina3" placeholder="Sestavina 3"><br>
+    <input type="text" id="sestavina4" placeholder="Sestavina 4"><br>
+
+    <button onclick="getHladilnik()">Dobi recept</button>
+
+    <br>
+     <table border="1">
+        <th colspan="2">Opozorilo</th>
+        <tr>
+            <td>Vnesite vsaj 1 sestavino </td>
+            <td>Sestavine se ne smejo ponavljati.</td>
+        </tr>
+
+     </table>
+
+    <div id="output1"></div>
+    <div id="output2"></div>
+    <div id="output3"></div>
+    <div id="output4"></div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        function getDice() {
+        function getHladilnik() {
             var output = document.getElementById("output");
 
             $.ajax({
-                url: "/getDice",
+                url: "/getHladilnik",
                 data: {
-                    stranice: stranice.value,
-                    met: met.value
+                    sestavina1: sestavina1.value,
+                    sestavina2: sestavina2.value,
+                    sestavina3: sestavina3.value,
+                    sestavina4: sestavina4.value
                 },
                 success: function (result) {
-                    output.innerHTML = "Result: " + result;
                     
+                    output1.innerHTML = result.ime;
+                    output2.innerHTML = result.slika;
+                    output3.innerHTML = result.sestavine;
+                    output4.innerHTML = result.navodila;
+                    
+
                 }
             });
         }

@@ -13,6 +13,35 @@
     <a href="/">Domov</a>
     <h1>Isci po ID-ju recepta</h1>
 
+    <input type="text" id="id" placeholder="Vnesite ID recepta" maxlength="6">
+    <button onclick="getIdSearch()">Dobi recept</button>
 
+    <div id="output1"></div>
+    <div id="output2"></div>
+    <div id="output3"></div>
+    <div id="output4"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function getIdSearch() {
+            var output = document.getElementById("output");
+
+            $.ajax({
+                url: "getIdSearch",
+                data: {
+                    id: id.value,
+
+                },
+                success: function (result) {
+                    output1.innerHTML = result.ime;
+                    output2.innerHTML = result.slika;
+                    output3.innerHTML = result.ingredients;
+                    output4.innerHTML = result.navodila;
+
+                    
+                }
+            });
+        }
+    </script>
 </body>
 </html>

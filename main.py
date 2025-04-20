@@ -54,7 +54,37 @@ def getRandomRecipe():
 
 @app.route("/getHladilnik")
 def getHladilnik():
-    return "x"
+    sestavina1 = request.args.get("sestavina1")
+    sestavina2 = request.args.get("sestavina2")
+    sestavina3 = request.args.get("sestavina3")
+    sestavina4= request.args.get("sestavina4")
+
+    sestavine = sestavina1 + "," + sestavina2 + "," + sestavina3 + "," + sestavina4
+    print(sestavine)
+    url = f"https://api.spoonacular.com/recipes/complexSearch?query={sestavine}&apiKey=32be0b921f2a4e7fac0f85279c03b8cb"
+
+    call = requests.get(url).json()
+
+    #print(call)
+
+    id = call["results"][0]["id"]
+    print(id)
+    url = f"https://api.spoonacular.com/recipes/{id}/information?apiKey=6fea24f6376a45eb9033908b8bbc7579"
+
+    call_recept = requests.get(url).json()
+
+    #print(call_recept)
+
+    amount = []
+    for ingredient in call_recept["extendedIngredients"]:
+        if "nameClean" in ingredient:
+            amount.append(ingredient["original"])
+
+
+    return jsonify({"slika": f"<img src={call_recept["image"]}>",
+                    "ime": call_recept["title"],
+                    "sestavine": amount,
+                    "navodila": call_recept["instructions"]})
 
 
 @app.route("/hladilnik")
@@ -137,10 +167,12 @@ def zdravi():
     return render_template("zdravi_obrok.html")
 
 
+
+
+
 @app.route("/getTecaji")
 def getTecaji():
     return "x"
-
 
 @app.route("/tecaji")
 def tecaji():
@@ -154,6 +186,10 @@ def getDodajRecept():
 @app.route("/dodajRecept")
 def dodajRecept():
     return render_template("dodaj_recept.html")
+
+
+
+
 
 
 @app.route("/getInfo")
@@ -212,9 +248,31 @@ def info():
 
 
 
+
+
+
 @app.route("/getIdSearch")
 def getIdSearch():
-    return "x"
+
+    id = request.args.get("id")
+    url = f"https://api.spoonacular.com/recipes/{id}/information?apiKey=6fea24f6376a45eb9033908b8bbc7579"
+
+    call = requests.get(url).json()
+    print(call)
+
+    ing = []
+    amount = []
+    for ingredient in call["extendedIngredients"]:
+        if "nameClean" in ingredient:
+            amount.append(ingredient["original"])
+
+
+    #print(ing,amount )
+
+    return jsonify({"slika": f"<img src={call["image"]}>",
+                    "ime": call["title"],
+                    "ingredients": amount,
+                    "navodila": call["instructions"]})
 
 
 @app.route("/idSearch")
