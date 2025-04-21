@@ -11,9 +11,61 @@
 </head>
 <body>
     
-
+    <a href="/">Domov</a>
     <h1>Kalkulator sestavin</h1>
 
-    <a href="/">Domov</a>
+    <input type="number" id="kolicina1" placeholder="Količina 1"><br>
+    <input type="number" id="kolicina2" placeholder="Količina 2"><br>
+    <input type="number" id="kolicina3" placeholder="Količina 3"><br>
+    <input type="number" id="kolicina4" placeholder="Količina 4"><br>
+    <input type="number" id="kolicina5" placeholder="Količina 5"><br>
+    <input type="number" id="kolicina6" placeholder="Količina 6"><br>
+    <br>
+    <input type="number" id="stevilo" placeholder="Število ljudi"><br>
+
+    <button onclick="getKalkulator()">Pretvori sestavine</button>
+
+
+ 
+    <div id="output">
+        {% if output %}
+            <h2>Rezultati:</h2>
+            <ul>
+                {% for item in output %}
+                    <li>{{ item }} enot</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Ni rezultatov za prikazati ali napačni podatki.</p>
+        {% endif %}
+    </div>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function getKalkulator() {
+            var output = document.getElementById("output");
+ 
+            $.ajax({
+                url: "/getKalkulator",
+                data: {
+                    stevilo: stevilo.value,
+                    kolicina1: kolicina1.value,
+                    kolicina2: kolicina2.value,
+                    kolicina3: kolicina3.value,
+                    kolicina4: kolicina4.value,
+                    kolicina5: kolicina5.value,
+                    kolicina6: kolicina6.value
+
+                },
+                success: function (result) {
+                    
+                    output.innerHTML = result;
+
+
+                }
+            });
+        }
+    </script>
 </body>
 </html>

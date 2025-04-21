@@ -91,9 +91,33 @@ def getHladilnik():
 def hladilnik():
     return render_template("hladilnik.html")
 
+
+
 @app.route("/getKalkulator")
 def getKalkulator():
-    return "x"
+    kolicina1 = request.args.get("kolicina1")
+    kolicina2 = request.args.get("kolicina2")
+    kolicina3 = request.args.get("kolicina3")
+    kolicina4 = request.args.get("kolicina4")
+    kolicina5 = request.args.get("kolicina5")
+    kolicina6 = request.args.get("kolicina6")
+
+    stevilo = request.args.get("stevilo")
+
+
+    sez_kolicin = [kolicina1, kolicina2, kolicina3, kolicina4, kolicina5, kolicina6]
+    pretvorjene = []
+
+    for sestavina in sez_kolicin:
+        if sestavina == "":
+            sestavina = 0
+        else:
+            pretvorjene.append(round(int(sestavina) / int(stevilo)))
+
+
+    print(pretvorjene)
+
+    return pretvorjene
 
 
 @app.route("/kalkulator")
@@ -244,10 +268,6 @@ def getInfo():
 @app.route("/info")
 def info():
     return render_template("info_sestavine.html")
-
-
-
-
 
 
 
