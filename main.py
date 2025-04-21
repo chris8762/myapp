@@ -115,9 +115,9 @@ def getKalkulator():
             pretvorjene.append(round(int(sestavina) / int(stevilo)))
 
 
-    print(pretvorjene)
+    #print(pretvorjene)
 
-    return pretvorjene
+    return {"pretvorjene": pretvorjene}
 
 
 @app.route("/kalkulator")
@@ -202,17 +202,30 @@ def getTecaji():
 def tecaji():
     return render_template("kuharski_tecaji.html")
 
+
+
+
+
+
 @app.route("/getDodajRecept")
 def getDodajRecept():
-    return "x"
+
+    naslov = request.args.get("naslov")
+    slika = request.args.get("slika")
+    sestavine = request.args.get("sestavine")
+    navodila = request.args.get("navodila")
+    tezavnost = request.args.get("tezavnost")
+    cas_priprave = request.args.get("casPriprave")
+    osebe = request.args.get("osebe")
+    
+    #print(f"Recept: {naslov}, {slika}, {sestavine}, {navodila}, {tezavnost}, {cas_priprave}, {osebe}")
+    print(sestavine)
+    return jsonify({"message": "Recept uspešno dodan!"})
 
 
 @app.route("/dodajRecept")
 def dodajRecept():
     return render_template("dodaj_recept.html")
-
-
-
 
 
 
@@ -298,4 +311,5 @@ def getIdSearch():
 @app.route("/idSearch")
 def idSearch():
     return render_template("id_search.html")
+
 app.run(debug = True)

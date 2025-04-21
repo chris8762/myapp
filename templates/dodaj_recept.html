@@ -4,34 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dodajanje recepta</title>
+    <style> 
+    body {background-color: rgb(69, 71, 70); color: white;}
+    </style>
 
+</head>
+
+<body>
     <a href="/">Domov</a>
     <h1>Dodajte svoj recept</h1>
 
-    <h2>Trenutno se v fazi izdelave.</h2>
-
+    <form onsubmit="getDodajRecept(); return false;">
+        <input type="text" id="naslov" placeholder="Naslov recepta" required><br><br>
+        <input type="text" id="slika" placeholder="URL slike" required><br><br>
+        <textarea id="sestavine" rows="5" placeholder="Sestavine (vsaka v novo vrstico)" required></textarea><br><br>
+        <textarea id="navodila" rows="6" placeholder="Navodila za pripravo" required></textarea><br><br>
+        <select id="tezavnost" required>
+            <option value="">Izberite težavnost</option>
+            <option value="enostavno">Enostavno</option>
+            <option value="srednje">Srednje</option>
+            <option value="zahtevno">Zahtevno</option>
+        </select><br><br>
+        <input type="number" id="casPriprave" placeholder="Čas priprave (v minutah)" min="1" required><br><br>
+        <input type="number" id="osebe" placeholder="Število oseb" min="1" required><br><br>
+        
+        <input type="submit" value="Dodaj recept"><br><br>
+    </form>
+    
+    <div id="output"></div>
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        function getAi() {
+        function getDodajRecept() {
             var output = document.getElementById("output");
-
+    
             $.ajax({
-                url: "/getDice",
+                url: "/getDodajRecept",
+
                 data: {
-                    stranice: stranice.value,
-                    met: met.value
+                    naslov: naslov.value,
+                    slika: slika.value,
+                    sestavine: sestavine.value,
+                    navodila: navodila.value,
+                    tezavnost: tezavnost.value,
+                    casPriprave: casPriprave.value,
+                    osebe: osebe.value
                 },
-                success: function (result) {
-                    output.innerHTML = "Result: " + result;
-                    
+                success: function(result) {
+                    output.innerHTML = "Recept uspešno dodan! <br>";
+                },
+                error: function() {
+                    output.innerHTML = "Napaka pri pošiljanju recepta!";
                 }
             });
         }
-
-
-</head>
-<body>
+    </script>
+    
     
 </body>
 </html>
+

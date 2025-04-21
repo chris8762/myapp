@@ -25,19 +25,21 @@
 
     <button onclick="getKalkulator()">Pretvori sestavine</button>
 
-
+    <p>*Vnesti morate vsaj eno kolicino</p>
+    <p>*Število ljudi je obvezno</p>
  
     <div id="output">
-        {% if output %}
-            <h2>Rezultati:</h2>
-            <ul>
-                {% for item in output %}
-                    <li>{{ item }} enot</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>Ni rezultatov za prikazati ali napačni podatki.</p>
-        {% endif %}
+        {% if pretvorjene %}
+        <h2>Rezultati:</h2>
+        <ul>
+            {% for item in pretvorjene %}
+                <li>{{ item }} enot</li>
+            {% endfor %}
+        </ul>
+            {% else %}
+                <p>Ni rezultatov za prikazati ali napačni podatki.</p>
+            {% endif %}
+    
     </div>
     
 
@@ -59,11 +61,20 @@
 
                 },
                 success: function (result) {
-                    
-                    output.innerHTML = result;
-
-
+                    var html = "<h2>Vnesene količine:</h2><ul>";
+                    html += "<li>Količina 1: &nbsp;&nbsp;" + kolicina1.value + "</li>";
+                    html += "<li>Količina 2: &nbsp;&nbsp;" + kolicina2.value + "</li>";
+                    html += "<li>Količina 3: &nbsp;&nbsp;" + kolicina3.value + "</li>";
+                    html += "<li>Količina 4: &nbsp;&nbsp;" + kolicina4.value + "</li>";
+                    html += "<li>Količina 5: &nbsp;&nbsp;" + kolicina5.value + "</li>";
+                    html += "<li>Količina 6: &nbsp;&nbsp;" + kolicina6.value + "</li><br>";
+                    html += "<li>Število ljudi: " + stevilo.value + "</li>";
+                    html += "</ul>";
+                
+                    output.innerHTML = html;
                 }
+
+
             });
         }
     </script>
