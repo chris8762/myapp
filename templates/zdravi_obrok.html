@@ -65,7 +65,7 @@ function getZdravi() {
                 var roundedCalories = recipe.calories.toFixed(1);
 
                 formattedOutput += "<li>";
-                formattedOutput += "<strong>" + recipe.title + "</strong><br>";
+                formattedOutput += recipe.title + "<br>";
                 formattedOutput += "Recipe ID: " + recipe.id + "<br>";
                 formattedOutput += "Protein: " + roundedProtein + "g<br>";
                 formattedOutput += "Calories: " + roundedCalories + " kcal<br>";

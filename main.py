@@ -60,7 +60,7 @@ def getHladilnik():
     sestavina4= request.args.get("sestavina4")
 
     sestavine = sestavina1 + "," + sestavina2 + "," + sestavina3 + "," + sestavina4
-    print(sestavine)
+    #print(sestavine)
     url = f"https://api.spoonacular.com/recipes/complexSearch?query={sestavine}&apiKey=32be0b921f2a4e7fac0f85279c03b8cb"
 
     call = requests.get(url).json()
@@ -68,7 +68,7 @@ def getHladilnik():
     #print(call)
 
     id = call["results"][0]["id"]
-    print(id)
+    #print(id)
     url = f"https://api.spoonacular.com/recipes/{id}/information?apiKey=6fea24f6376a45eb9033908b8bbc7579"
 
     call_recept = requests.get(url).json()
@@ -95,6 +95,7 @@ def hladilnik():
 
 @app.route("/getKalkulator")
 def getKalkulator():
+    api = "c2349e0991734b2b9b61908591c4aaab"
     kolicina1 = request.args.get("kolicina1")
     kolicina2 = request.args.get("kolicina2")
     kolicina3 = request.args.get("kolicina3")
@@ -189,8 +190,6 @@ def getZdravi():
 @app.route("/zdravi")
 def zdravi():
     return render_template("zdravi_obrok.html")
-
-
 
 
 
@@ -311,5 +310,33 @@ def getIdSearch():
 @app.route("/idSearch")
 def idSearch():
     return render_template("id_search.html")
+
+@app.route("/getPretvori")
+def getPretvori():
+
+    ing = request.args.get("ing")
+    amount = request.args.get("amount")
+    enota = request.args.get("enota")
+    pretvorjena = request.args.get("pretvorjena")
+    api_key = "c2349e0991734b2b9b61908591c4aaab"
+    url = f"https://api.spoonacular.com/recipes/convert?ingredientName={ing}&sourceAmount={amount}&sourceUnit={enota}&targetUnit={pretvorjena}&apiKey={api_key}"
+
+    call = requests.get(url).json()
+    print(call)
+
+
+
+
+    return call["answer"]
+
+@app.route("/pretvori")
+def pretvori():
+    return render_template("pretvori.html")
+
+
+
+
+
+
 
 app.run(debug = True)

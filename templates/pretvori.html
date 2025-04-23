@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pretvorba enot</title>
+</head>
+<body>
+    <a href="/">Domov</a>
+    <h1>Pretvorite enote</h1>
+
+    <input type="text" id="ing" placeholder="Sestavina"><br>
+    <input type="text" id="amount" placeholder="Kolicina"><br>
+    <input type="text" id="enota" placeholder="Enota"><br>
+    <input type="text" id="pretvorjena" placeholder="Zeljena enota"><br>
+
+    <button onclick="getPretvori()">Pretvori sestavine</button>
+
+    <div id="output"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function getPretvori() {
+            var output = document.getElementById("output");
+
+            $.ajax({
+                url: "/getPretvori",
+                data: {
+                    ing: ing.value,
+                    amount: amount.value,
+                    enota: enota.value,
+                    pretvorjena: pretvorjena.value
+                },
+                success: function (result) {
+                    
+                    output.innerHTML = result;
+
+                }
+            });
+        }
+    </script>
+
+
+
+</body>
+</html>
