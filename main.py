@@ -1,9 +1,77 @@
 from flask import Flask, render_template, jsonify, request
 import random
 import requests
+import sqlite3
+
+conn = sqlite3.connect('users.db')
+c = conn.cursor()
+
+
+c.execute('''CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT,
+    mail TEXT,
+    geslo TEXT
+)''')
+
+conn.commit()
+conn.close()
 
 
 app = Flask(__name__)
+
+@app.route("/getRegister")
+def getRegister():
+    username = request.args.get("username")  
+    mail = request.args.get("mail")
+    geslo = request.args.get("geslo")
+
+    baza = sqlite3.connect('users.db')
+    c = baza.cursor()
+    c.execute("INSERT INTO users (username, mail, geslo) VALUES (?,?,?) ", (username, mail, geslo))
+
+    baza.commit()
+    baza.close()
+
+
+    #print(username,mail,geslo)
+    return f"Registracija uspesna"
+
+
+
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
+
+@app.route("/getLogin")
+def getLogin():
+    mail = request.args.get("mail")
+    geslo = request.args.get("geslo")
+
+    baza = sqlite3.connect('users.db')
+    c = baza.cursor()
+
+
+    c.execute("SELECT * FROM users WHERE mail = ? AND geslo = ?", (mail, geslo))
+    user = c.fetchone()
+
+    baza.close()
+
+    if user:
+        return f"Prijava uspešna!"
+    else:
+        return f"Napaka: Napačen email ali geslo."
+
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+
+#---------------druge strani-------------------
+#------------------------------------------------------
+#------------------------------------------------------
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -322,37 +390,6 @@ def getPretvori():
 
 
     return call["answer"]
-
-@app.route("/getLogin")
-def getLogin():
-    mail = request.args.get("mail")
-    geslo = request.args.get("geslo")
-
-    print(mail,geslo)
-    return f"x"
-
-
-@app.route("/login")
-def login():
-    return render_template("login.html")
-
-
-
-@app.route("/getRegister")
-def getRegister():
-    mail = request.args.get("mail")
-    geslo = request.args.get("geslo")
-
-    print(mail,geslo)
-    return f"x"
-
-
-
-@app.route("/register")
-def register():
-    return render_template("register.html")
-
-
 
 
 app.run(debug = True)

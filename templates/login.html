@@ -20,10 +20,7 @@
     <br>
     <button onclick="getLogin()">Prijavi se</button><br>
 
-    <br>
-    <a href="/register">Registriraj se</a>
-
-
+    <div id="output"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         function getLogin() {
@@ -36,7 +33,7 @@
                     geslo: geslo.value
                 },
                 success: function (result) {
-                    output.innerHTML = "Prijava uspesna. " + result;
+                    output.innerHTML = result;
                     
                 }
             });

@@ -15,11 +15,12 @@
     <a href="/">Domov</a>
     <h1>Registrirajte se!</h1>
 
-    <input type="text" id="mail" placeholder="Vnesite svoj e-mail" required><br>
+    <input type="text" id="username" placeholder="Uporabnisko ime" required><br>
+    <input type="text" id="mail" placeholder="Vnesite e-mail" required><br>
     <input type="password" id="geslo" placeholder="Vnesite geslo" required><br>
     <br>
     <button onclick="getRegister()">Registriraj se</button>
-
+    <div id="output"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         function getRegister() {
@@ -28,11 +29,12 @@
             $.ajax({
                 url: "/getRegister",
                 data: {
+                    username: username.value,
                     mail: mail.value,
                     geslo: geslo.value
                 },
                 success: function (result) {
-                    output.innerHTML = "Registracija uspesna. " + result;
+                    output.innerHTML = result;
                     
                 }
             });
