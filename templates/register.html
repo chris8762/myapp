@@ -3,44 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Registrirajte se</title>
     <style>
         body {background-color: rgb(69, 71, 70); color: white;}
         a:visited {color: white}
         li {padding-bottom: 10px;}
     </style>
 </head>
+
 <body>
     <a href="/">Domov</a>
-    <h1>Prijavite se!</h1>
-
+    <h1>Registrirajte se!</h1>
 
     <input type="text" id="mail" placeholder="Vnesite svoj e-mail" required><br>
     <input type="password" id="geslo" placeholder="Vnesite geslo" required><br>
     <br>
-    <button onclick="getLogin()">Prijavi se</button><br>
-
-    <br>
-    <a href="/register">Registriraj se</a>
-
+    <button onclick="getRegister()">Registriraj se</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        function getLogin() {
+        function getRegister() {
             var output = document.getElementById("output");
 
             $.ajax({
-                url: "/getLogin",
+                url: "/getRegister",
                 data: {
                     mail: mail.value,
                     geslo: geslo.value
                 },
                 success: function (result) {
-                    output.innerHTML = "Prijava uspesna. " + result;
+                    output.innerHTML = "Registracija uspesna. " + result;
                     
                 }
             });
         }
     </script>
+
 </body>
 </html>
