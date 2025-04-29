@@ -1,4 +1,6 @@
-from flask import Flask, render_template, jsonify, request
+# za pregled po bazi v terminalu: sqlite3 users.db ---> potem pa SELECT * FROM users;
+
+from flask import Flask, render_template, jsonify, request, redirect
 import random
 import requests
 import sqlite3
@@ -20,55 +22,56 @@ conn.close()
 
 app = Flask(__name__)
 
-@app.route("/getRegister")
-def getRegister():
-    username = request.args.get("username")  
-    mail = request.args.get("mail")
-    geslo = request.args.get("geslo")
-
-    baza = sqlite3.connect('users.db')
-    c = baza.cursor()
-    c.execute("INSERT INTO users (username, mail, geslo) VALUES (?,?,?) ", (username, mail, geslo))
-
-    baza.commit()
-    baza.close()
-
-
-    #print(username,mail,geslo)
-    return f"Registracija uspesna"
-
-
-
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("register.html")
+    if request.method == "POST":
+        username = request.form.get("username")
+        mail = request.form.get("mail")
+        geslo = request.form.get("geslo")
 
+        #print(username,mail)
+        conn = sqlite3.connect('users.db')
+        c = conn.cursor()
+        
+        c.execute("SELECT username, mail FROM users WHERE username = ? OR mail = ?", (username, mail))
+        user = c.fetchone() 
+        #print(user)
+        if user(0) == username or user(1) == mail:
+            conn.close()
+            
+            return render_template("register.html", error=f"Uporabniško ime ali e-mail že obstajata.")
+        
+        else:
+            c.execute("INSERT INTO users (username, mail, geslo) VALUES (?, ?, ?)", (username, mail, geslo))
+            conn.commit()
+            conn.close()
 
-@app.route("/getLogin")
-def getLogin():
-    mail = request.args.get("mail")
-    geslo = request.args.get("geslo")
+            return redirect("/")
 
-    baza = sqlite3.connect('users.db')
-    c = baza.cursor()
-
-
-    c.execute("SELECT * FROM users WHERE mail = ? AND geslo = ?", (mail, geslo))
-    user = c.fetchone()
-
-    baza.close()
-
-    if user:
-        return f"Prijava uspešna!"
     else:
-        return f"Napaka: Napačen email ali geslo."
+        return render_template("register.html")
 
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
+@app.route("/login", methods=["GET", "POST"])
+def getLogin():
+    if request.method == "POST":
+        mail = request.form.get("mail")
+        geslo = request.form.get("geslo")
+
+        baza = sqlite3.connect('users.db')
+        c = baza.cursor()
 
 
+        c.execute("SELECT * FROM users WHERE mail = ? AND geslo = ?", (mail, geslo))
+        user = c.fetchone()
+
+        baza.close()
+
+        if user:
+            return redirect("/")
+    else:
+        return render_template("login.html")
+    
 #---------------druge strani-------------------
 #------------------------------------------------------
 #------------------------------------------------------

@@ -14,27 +14,31 @@
     <a href="/">Domov</a>
     <h1>Prijavite se!</h1>
 
-
-    <input type="text" id="mail" placeholder="Vnesite svoj e-mail" required><br>
-    <input type="password" id="geslo" placeholder="Vnesite geslo" required><br>
+    <form action="POST" method="/login">
+        <input type="text" id="mail" placeholder="Vnesite e-mail" required><br>
+        <input type="password" id="geslo" placeholder="Vnesite geslo" required><br>
+    </form>
     <br>
-    <button onclick="getLogin()">Prijavi se</button><br>
+    <button onclick="login()">Prijavi se</button><br>
 
     <div id="output"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        function getLogin() {
+        function login() {
             var output = document.getElementById("output");
 
             $.ajax({
-                url: "/getLogin",
+                url: "/login",  
+                method: "POST",  
                 data: {
-                    mail: mail.value,
-                    geslo: geslo.value
+                    mail: $("#mail").val(),
+                    geslo: $("#geslo").val()
                 },
                 success: function (result) {
-                    output.innerHTML = result;
-                    
+                    window.location.href = "/";
+                },
+                error: function (xhr, status, error) {
+                    output.innerHTML = "Napacen e-mail ali geslo " + error;
                 }
             });
         }
