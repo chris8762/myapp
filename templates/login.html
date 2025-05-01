@@ -15,11 +15,14 @@
     <h1>Prijavite se!</h1>
 
     <form action="POST" method="/login">
-        <input type="text" id="mail" placeholder="Vnesite e-mail" required><br>
+        <input type="text" id="username" placeholder="Vnesite up. ime" required><br>
         <input type="password" id="geslo" placeholder="Vnesite geslo" required><br>
     </form>
     <br>
     <button onclick="login()">Prijavi se</button><br>
+
+    <p>Še nimate računa? <a href="/register">Registracija</a></p>
+
 
     <div id="output"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -31,14 +34,14 @@
                 url: "/login",  
                 method: "POST",  
                 data: {
-                    mail: $("#mail").val(),
+                    username: $("#username").val(),
                     geslo: $("#geslo").val()
                 },
                 success: function (result) {
                     window.location.href = "/";
                 },
                 error: function (xhr, status, error) {
-                    output.innerHTML = "Napacen e-mail ali geslo " + error;
+                    output.innerHTML = "Napacno uporabnisko ime ali geslo!";
                 }
             });
         }

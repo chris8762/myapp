@@ -16,7 +16,6 @@
 
     <form onsubmit="getDodajRecept(); return false;">
         <input type="text" id="naslov" placeholder="Naslov recepta" required><br><br>
-        <input type="text" id="slika" placeholder="URL slike" required><br><br>
         <textarea id="sestavine" rows="5" placeholder="Sestavine (vsaka v novo vrstico)" required></textarea><br><br>
         <textarea id="navodila" rows="6" placeholder="Navodila za pripravo" required></textarea><br><br>
         <select id="tezavnost" required>
@@ -44,7 +43,6 @@
 
                 data: {
                     naslov: naslov.value,
-                    slika: slika.value,
                     sestavine: sestavine.value,
                     navodila: navodila.value,
                     tezavnost: tezavnost.value,
@@ -52,7 +50,7 @@
                     osebe: osebe.value
                 },
                 success: function(result) {
-                    output.innerHTML = "Recept uspešno dodan! <br>";
+                    output.innerHTML = result.message;
                 },
                 error: function() {
                     output.innerHTML = "Napaka pri pošiljanju recepta!";

@@ -1,9 +1,11 @@
 # za pregled po bazi v terminalu: sqlite3 users.db ---> potem pa SELECT * FROM users;
 
-from flask import Flask, render_template, jsonify, request, redirect
+from flask import Flask, render_template, jsonify, request, redirect, session
 import random
 import requests
 import sqlite3
+import os
+
 
 conn = sqlite3.connect('users.db')
 c = conn.cursor()
@@ -20,7 +22,26 @@ conn.commit()
 conn.close()
 
 
+conn = sqlite3.connect('recepti.db')
+c = conn.cursor()
+
+# Ustvari tabelo za recepte
+c.execute('''CREATE TABLE IF NOT EXISTS recepti (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    naslov TEXT,
+    slika TEXT,
+    sestavine TEXT,
+    navodila TEXT,
+    tezavnost TEXT,
+    cas_priprave INTEGER,
+    osebe INTEGER
+)''')
+
+conn.commit()
+conn.close()
+
 app = Flask(__name__)
+app.secret_key = "1234"
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -29,55 +50,68 @@ def register():
         mail = request.form.get("mail")
         geslo = request.form.get("geslo")
 
-        #print(username,mail)
         conn = sqlite3.connect('users.db')
         c = conn.cursor()
-        
-        c.execute("SELECT username, mail FROM users WHERE username = ? OR mail = ?", (username, mail))
-        user = c.fetchone() 
-        #print(user)
-        if user(0) == username or user(1) == mail:
-            conn.close()
-            
-            return render_template("register.html", error=f"Uporabniško ime ali e-mail že obstajata.")
-        
-        else:
-            c.execute("INSERT INTO users (username, mail, geslo) VALUES (?, ?, ?)", (username, mail, geslo))
-            conn.commit()
-            conn.close()
 
-            return redirect("/")
+        c.execute("SELECT username FROM users WHERE username = ?", (username,))
+        if c.fetchone():
+            conn.close()
+            return jsonify({"message": "Uporabnisko ime ze obstaja", "povezava": "/register"})
 
+        c.execute("SELECT mail FROM users WHERE mail = ?", (mail,))
+        if c.fetchone():
+            conn.close()
+            return jsonify({"message": "Registracija uspesna!", "povezava": "/register"})
+
+        c.execute("INSERT INTO users (username, mail, geslo) VALUES (?, ?, ?)", (username, mail, geslo))
+        conn.commit()
+        conn.close()
+        return jsonify({"message": "Registracija uspesna!", "povezava": "/login"})
+        
+    
     else:
         return render_template("register.html")
 
 
+
 @app.route("/login", methods=["GET", "POST"])
-def getLogin():
+def login():
     if request.method == "POST":
-        mail = request.form.get("mail")
+        username = request.form.get("username")
         geslo = request.form.get("geslo")
 
         baza = sqlite3.connect('users.db')
         c = baza.cursor()
 
 
-        c.execute("SELECT * FROM users WHERE mail = ? AND geslo = ?", (mail, geslo))
+        c.execute("SELECT * FROM users WHERE username = ? AND geslo = ?", (username, geslo))
         user = c.fetchone()
 
         baza.close()
 
-        if user:
+        if user != None:
+            session["username"] = user[1]
+            print(user[1])
             return redirect("/")
     else:
         return render_template("login.html")
-    
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/login")
+
 #---------------druge strani-------------------
 #------------------------------------------------------
 #------------------------------------------------------
 @app.route("/")
 def index():
-    return render_template("index.html")
+    if "username" in session: 
+        username = session["username"]
+        return render_template("index.html", username=username)
+    else:
+        return render_template("index.html")
+
 
 #glavne funkcije
 @app.route("/randomRecipe")
@@ -268,22 +302,28 @@ def tecaji():
 
 
 
-
-
-
 @app.route("/getDodajRecept")
 def getDodajRecept():
 
     naslov = request.args.get("naslov")
-    slika = request.args.get("slika")
     sestavine = request.args.get("sestavine")
     navodila = request.args.get("navodila")
     tezavnost = request.args.get("tezavnost")
     cas_priprave = request.args.get("casPriprave")
     osebe = request.args.get("osebe")
     
-    #print(f"Recept: {naslov}, {slika}, {sestavine}, {navodila}, {tezavnost}, {cas_priprave}, {osebe}")
-    print(sestavine)
+    print(f"Recept: {naslov}, {sestavine}, {navodila}, {tezavnost}, {cas_priprave}, {osebe}")
+
+    conn = sqlite3.connect('recepti.db') 
+    c = conn.cursor()
+    
+    c.execute('''INSERT INTO recepti (naslov, sestavine, navodila, tezavnost, cas_priprave, osebe)
+                 VALUES ( ?, ?, ?, ?, ?, ?)''', 
+              (naslov, sestavine, navodila, tezavnost, cas_priprave, osebe))
+
+    conn.commit()
+    conn.close()
+
     return jsonify({"message": "Recept uspešno dodan!"})
 
 
