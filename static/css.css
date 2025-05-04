@@ -1,0 +1,127 @@
+a:visited {color: white}
+
+/* Reset in osnova */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #1e1e1e;
+    color: #f2f2f2;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Navigacija */
+nav {
+    background-color: #2a2a2a;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a {
+    color: #f2f2f2;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #00c4ff;
+}
+
+/* Glavna vsebina */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #2c2c2c;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Naslovi */
+h1, h2, h3 {
+    color: #00c4ff;
+    margin-bottom: 20px;
+}
+
+/* Obrazci */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea, select {
+    background-color: #3b3b3b;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: 2px solid #00c4ff;
+}
+
+/* Gumbi */
+button {
+    background-color: #00c4ff;
+    color: #1e1e1e;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #00a3d4;
+}
+
+/* Tabele */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+}
+
+td {
+    background-color: #2a2a2a;
+    border-bottom: 1px solid #444;
+}
+
+/* Obvestila ali napake */
+.alert {
+    background-color: #ff4c4c;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+/* Odzivnost */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+    }
+}

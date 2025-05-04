@@ -25,7 +25,6 @@ conn.close()
 conn = sqlite3.connect('recepti.db')
 c = conn.cursor()
 
-# Ustvari tabelo za recepte
 c.execute('''CREATE TABLE IF NOT EXISTS recepti (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     naslov TEXT,
@@ -73,7 +72,6 @@ def register():
         return render_template("register.html")
 
 
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -91,8 +89,11 @@ def login():
 
         if user != None:
             session["username"] = user[1]
-            print(user[1])
-            return redirect("/")
+            #print(user[1])
+            return jsonify({"message": "Prijava uspesna!", "povezava": "/"})
+        else:
+            return jsonify({"message": "Napacno uporabnisko ime ali geslo."})
+
     else:
         return render_template("login.html")
 
@@ -101,14 +102,65 @@ def logout():
     session.clear()
     return redirect("/login")
 
+@app.route("/dashboard")
+def dashboard():
+    if "username" in session:
+        username = session["username"]
+        if  username == "admin":
+            return render_template("dashboard.html", username=username)
+        else:
+            return render_template("index.html", username=username)
+        
+
+
+
+@app.route("/uporabniki")
+def uporabniki():
+    if "username" in session:
+        username = session["username"]
+        if  username == "admin":
+            conn = sqlite3.connect('users.db')
+            c = conn.cursor()
+            c.execute("SELECT id, username, mail FROM users")
+            users = c.fetchall()
+            conn.close()
+
+            return render_template("uporabniki.html", users=users)
+        
+        else:
+            return render_template("index.html", username=username)
+
+
+
+@app.route("/izbrisi/<id>", methods=["POST"])
+def izbrisi(id):
+    if "username" in session:
+        username = session["username"]
+        if username == "admin":
+            conn = sqlite3.connect('users.db')
+            c = conn.cursor()
+            c.execute("DELETE FROM users WHERE id = ?", (id,))
+            conn.commit()
+            conn.close()
+            return redirect("/uporabniki")
+
+    else:
+        return render_template("index.html", username=username)
+
+
 #---------------druge strani-------------------
 #------------------------------------------------------
 #------------------------------------------------------
 @app.route("/")
 def index():
-    if "username" in session: 
+
+    if "username" in session:
         username = session["username"]
-        return render_template("index.html", username=username)
+        if  username == "admin":
+            return render_template("admin_index.html", username=username)
+        else:
+            return render_template("index.html", username=username)
+    
     else:
         return render_template("index.html")
 
@@ -142,7 +194,7 @@ def getRandomRecipe():
             amount.append(ingredient["original"])
 
 
-    print(ing,amount )
+    #print(ing,amount )
 
     return jsonify({"slika": f"<img src={recept["image"]}>",
                     "ime": recept["title"],
@@ -276,7 +328,7 @@ def getZdravi():
 
         sez_recipes.append(recipe_info)
 
-    print(sez_recipes)
+    #(sez_recipes)
 
     return jsonify({'recipes': sez_recipes})
 
@@ -312,7 +364,7 @@ def getDodajRecept():
     cas_priprave = request.args.get("casPriprave")
     osebe = request.args.get("osebe")
     
-    print(f"Recept: {naslov}, {sestavine}, {navodila}, {tezavnost}, {cas_priprave}, {osebe}")
+    #print(f"Recept: {naslov}, {sestavine}, {navodila}, {tezavnost}, {cas_priprave}, {osebe}")
 
     conn = sqlite3.connect('recepti.db') 
     c = conn.cursor()
@@ -378,7 +430,7 @@ def getInfo():
                 "unit": item["unit"]
             }
 
-    print(nutrition)
+    #print(nutrition)
     return jsonify(nutrition)
 
 
@@ -395,9 +447,8 @@ def getIdSearch():
     url = f"https://api.spoonacular.com/recipes/{id}/information?apiKey=6fea24f6376a45eb9033908b8bbc7579"
 
     call = requests.get(url).json()
-    print(call)
+    #print(call)
 
-    ing = []
     amount = []
     for ingredient in call["extendedIngredients"]:
         if "nameClean" in ingredient:
@@ -416,6 +467,11 @@ def getIdSearch():
 def idSearch():
     return render_template("id_search.html")
 
+@app.route("/pretvori")
+def pretvori():
+    return render_template("pretvori.html")
+
+
 @app.route("/getPretvori")
 def getPretvori():
 
@@ -427,10 +483,7 @@ def getPretvori():
     url = f"https://api.spoonacular.com/recipes/convert?ingredientName={ing}&sourceAmount={amount}&sourceUnit={enota}&targetUnit={pretvorjena}&apiKey={api_key}"
 
     call = requests.get(url).json()
-    print(call)
-
-
-
+    #print(call)
 
     return call["answer"]
 

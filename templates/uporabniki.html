@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Seznam uporabnikov</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+</head>
+<body>
+    <a href="/">Domov</a>
+
+
+    <h1>Seznam vseh uporabnikov</h1>
+    <table>
+        <tr>
+            <th>Uporabniško ime</th>
+            <th>E-mail</th>
+            <th>Izbris</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user[1] }}</td>
+            <td>{{ user[2] }}</td>
+            <td>
+                <form action="/izbrisi/{{user[0]}}" method="POST">
+                    <button type="submit">Izbriši</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -2,10 +2,14 @@
 <html>
 <head>
     <title>Nadzorna plošča</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
 </head>
 <body>
-    <h2>Dobrodošel, {{ username }}!</h2>
-    <p>Test</p>
-    <a href="/logout">Odjava</a>
+    <a href="/">Domov</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/logout">Odjava</a>
+    <h2>Nadzorna plošča</h2>
+
+    <a href="/uporabniki">Seznam uporabnikov</a>
+
+    
 </body>
 </html>

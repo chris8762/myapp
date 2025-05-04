@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        body {background-color: rgb(69, 71, 70); color: white;}
-        a:visited {color: white}
-        li {padding-bottom: 10px;}
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
 </head>
 <body>
     <a href="/">Domov</a>
@@ -23,7 +19,7 @@
 
     <p>Še nimate računa? <a href="/register">Registracija</a></p>
 
-
+    <div id="output"></div>
     <div id="output"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
@@ -34,14 +30,11 @@
                 url: "/login",  
                 method: "POST",  
                 data: {
-                    username: $("#username").val(),
-                    geslo: $("#geslo").val()
+                    username: username.value,
+                    geslo: username.value
                 },
                 success: function (result) {
-                    window.location.href = "/";
-                },
-                error: function (xhr, status, error) {
-                    output.innerHTML = "Napacno uporabnisko ime ali geslo!";
+                    output.innerHTML = result.message + " <a href='" + result.povezava + "'>Kliknite tukaj</a>";
                 }
             });
         }
