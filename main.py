@@ -77,22 +77,30 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         geslo = request.form.get("geslo")
-
+        print(username, geslo)
         baza = sqlite3.connect('users.db')
         c = baza.cursor()
 
 
-        c.execute("SELECT * FROM users WHERE username = ? AND geslo = ?", (username, geslo))
+        c.execute("SELECT username, geslo FROM users WHERE username = ? AND geslo = ?", (username, geslo))
         user = c.fetchone()
 
         baza.close()
 
         if user != None:
-            session["username"] = user[1]
-            #print(user[1])
-            return jsonify({"message": "Prijava uspesna!", "povezava": "/"})
+            session["username"] = user[0]
+            if session["username"] == user[0]:
+                if geslo == user[1]:
+                    #print(username, user[0])
+                    #print(geslo, user[1])
+                    return jsonify({"message": "Prijava uspešna!", "povezava": "/"})
+                else:
+                    return jsonify({"message": "Napačno geslo.", "povezava": "/login"})
+            else:
+                return jsonify({"message": "Napačno uporabniško ime ali geslo.", "povezava": "/login"})
         else:
-            return jsonify({"message": "Napacno uporabnisko ime ali geslo."})
+            return jsonify({"message": "Napačno uporabniško ime ali geslo.", "povezava": "/login"})
+
 
     else:
         return render_template("login.html")

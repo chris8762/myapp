@@ -17,10 +17,11 @@
     <br>
     <button onclick="login()">Prijavi se</button><br>
 
-    <p>Še nimate računa? <a href="/register">Registracija</a></p>
+    <div id="output"></div>
+    <br>
+    <br>
+    <p>Še nimate računa? <a href="/register">Registrirajte se</a></p>
 
-    <div id="output"></div>
-    <div id="output"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         function login() {
@@ -31,7 +32,7 @@
                 method: "POST",  
                 data: {
                     username: username.value,
-                    geslo: username.value
+                    geslo: geslo.value
                 },
                 success: function (result) {
                     output.innerHTML = result.message + " <a href='" + result.povezava + "'>Kliknite tukaj</a>";
