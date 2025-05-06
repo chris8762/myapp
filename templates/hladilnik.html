@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Iskanje po hladilniku</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona_food.png') }}">
 </head>
 <body>
 
@@ -35,6 +36,7 @@
     <div id="output2"></div>
     <div id="output3"></div>
     <div id="output4"></div>
+    <div id="output5"></div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -51,13 +53,21 @@
                     sestavina4: sestavina4.value
                 },
                 success: function (result) {
+                    if (!result.ime && !result.slika && (!result.ingredients || result.ingredients.length === 0) && !result.navodila) {
+                        output1.innerHTML =  "Ni mogoče najti recepta." + ' <a href="#" onclick="location.reload()">Kliknite tukaj za osvežitev</a>';
+                        output2.innerHTML = "";
+                        output3.innerHTML = "";
+                        output4.innerHTML = "";
+                        return;
+                    }
                     
+                    else {
                     output1.innerHTML = result.ime;
                     output2.innerHTML = result.slika;
                     output3.innerHTML = result.sestavine;
                     output4.innerHTML = result.navodila;
-                    
-
+                    output5.innerHTML = result.message;
+                    }
                 }
             });
         }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kaj naj jem</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona_food.png') }}">
 </head>
 <body>
     
@@ -28,6 +29,7 @@
         function getRandomRecipe() {
             var output = document.getElementById("output");
 
+
             $.ajax({
                 url: "/getRandomRecipe",
                 data: {
@@ -38,7 +40,7 @@
                     
                     output1.innerHTML = result.ime;
                     output2.innerHTML = result.slika;
-                    output3.innerHTML = result.ingredients;
+                    output3.innerHTML = result.ingredients + "<br>";
                     output4.innerHTML = result.navodila;
                     
 

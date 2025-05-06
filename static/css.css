@@ -13,6 +13,7 @@ body {
     color: #f2f2f2;
     line-height: 1.6;
     padding: 20px;
+    margin-left: 10px;
 }
 
 /* Navigacija */
@@ -35,7 +36,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #00c4ff;
+    color: #64d790;
 }
 
 /* Glavna vsebina */
@@ -50,7 +51,7 @@ nav a:hover {
 
 /* Naslovi */
 h1, h2, h3 {
-    color: #00c4ff;
+    color: #64d790;
     margin-bottom: 20px;
 }
 
@@ -70,12 +71,12 @@ input, textarea, select {
 }
 
 input:focus, textarea:focus, select:focus {
-    outline: 2px solid #00c4ff;
+    outline: 2px solid #64d790;
 }
 
 /* Gumbi */
 button {
-    background-color: #00c4ff;
+    background-color: #64d790;
     color: #1e1e1e;
     border: none;
     padding: 10px 15px;
@@ -89,26 +90,30 @@ button:hover {
     background-color: #00a3d4;
 }
 
-/* Tabele */
 table {
-    width: 100%;
     border-collapse: collapse;
+    width: 100%;
+    max-width: 600px;
     margin-top: 20px;
+    background-color: #747474;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 th, td {
-    padding: 12px 15px;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
     text-align: left;
 }
 
 th {
-    background-color: #333;
+    background-color: #64d790;
+    color: white;
 }
 
-td {
-    background-color: #2a2a2a;
-    border-bottom: 1px solid #444;
+tr:nth-child(even) {
+    background-color: #747474;
 }
+
 
 /* Obvestila ali napake */
 .alert {

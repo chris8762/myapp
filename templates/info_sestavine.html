@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informacije o sestavinah</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona_food.png') }}">
 </head>
 <body>
     
@@ -29,10 +30,18 @@
 
                 },
                 success: function (result) {
-                    output.innerHTML = JSON.stringify(result);
-
+                    let html = `<h2>Hranilne vrednosti za: ${result.name}</h2>`;
+                    html += `<table><thead><tr><th>Hranilo</th><th>Količina</th></tr></thead><tbody>`;
                     
+                    for (const [key, value] of Object.entries(result)) {
+                        if (key === 'name') continue;
+                        html += `<tr><td>${key}</td><td>${value.amount} ${value.unit}</td></tr>`;
+                    }
+                
+                    html += `</tbody></table>`;
+                    output.innerHTML = html;
                 }
+
             });
         }
     </script>

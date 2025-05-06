@@ -226,26 +226,30 @@ def getHladilnik():
 
     #print(call)
 
-    id = call["results"][0]["id"]
-    #print(id)
-    url = f"https://api.spoonacular.com/recipes/{id}/information?apiKey=6fea24f6376a45eb9033908b8bbc7579"
+    if call["totalResults"] == 0:
+        return jsonify({"message": "Recept s takimi sestavinami ne obstaja."})
+    
+    else:
+        id = call["results"][0]["id"]
+        #print(id)
+        url = f"https://api.spoonacular.com/recipes/{id}/information?apiKey=6fea24f6376a45eb9033908b8bbc7579"
 
-    call_recept = requests.get(url).json()
+        call_recept = requests.get(url).json()
 
-    #print(call_recept)
+        #print(call_recept)
 
-    amount = []
-    for ingredient in call_recept["extendedIngredients"]:
-        if "nameClean" in ingredient:
-            amount.append(ingredient["original"])
-
-
-    return jsonify({"slika": f"<img src={call_recept["image"]}>",
-                    "ime": call_recept["title"],
-                    "sestavine": amount,
-                    "navodila": call_recept["instructions"]})
+        amount = []
+        for ingredient in call_recept["extendedIngredients"]:
+            if "nameClean" in ingredient:
+                amount.append(ingredient["original"])
 
 
+        return jsonify({"slika": f"<img src={call_recept["image"]}>",
+                        "ime": call_recept["title"],
+                        "sestavine": amount,
+                        "navodila": call_recept["instructions"]})
+
+    
 @app.route("/hladilnik")
 def hladilnik():
     return render_template("hladilnik.html")
@@ -438,7 +442,7 @@ def getInfo():
                 "unit": item["unit"]
             }
 
-    #print(nutrition)
+    print(nutrition)
     return jsonify(nutrition)
 
 
