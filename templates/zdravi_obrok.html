@@ -9,6 +9,10 @@
 </head>
 
 <body>
+    <div id="slikca_sredina">
+        <a href="/"><img src="../static/slike/logo.png" alt="logotip" width="50%"></a>
+    </div>
+
     <a href="/">Domov</a>
 
     <h1>Zdravi obroki</h1>
@@ -36,8 +40,10 @@
         </tr>
     </table>
 
-    <a href="/idSearch">Išči po ID-ju recepta</a>
-
+    <!-- <a href="/idSearch">Išči po ID-ju recepta</a> -->
+    <p style="color: #64d790;">Kopirajte ID zeljenega recepta in pojdite na <a href="/idSearch">Išči</a></p>
+    <br>
+    <br>
     <div id="output"></div>
 
 
@@ -63,7 +69,7 @@ function getZdravi() {
 
                 formattedOutput += "<li>";
                 formattedOutput += recipe.title + "<br>";
-                formattedOutput += "Recipe ID: " + recipe.id + "<br>";
+                formattedOutput += '<span style="color: #64d790;">Recipe ID: ' + recipe.id + '</span><br>';
                 formattedOutput += "Protein: " + roundedProtein + "g<br>";
                 formattedOutput += "Calories: " + roundedCalories + " kcal<br>";
                 formattedOutput += "</li>";

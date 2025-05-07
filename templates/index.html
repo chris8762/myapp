@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Domov</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='slike/ikona_food.png') }}">
 </head>
 
 <body>
+
+    <div id="slikca_sredina">
+        <a href="/"><img src="../static/slike/logo.png" alt="logotip" width="50%"></a>
+    </div>
+
     {% if username %}
         <p>Hej, {{ username }}! <a href="/logout">Odjava</a></p> 
     {% else %}
         <p>Se vedno nite prijavljeni. <a href="login">Prijavite se</a></p>
     {% endif %}
-<a href="login"></a>
     <h1>Gurmanski svet</h1>
     <h2>Poskusite kakšno izmed funkcij</h2>
 

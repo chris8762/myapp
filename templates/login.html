@@ -8,6 +8,10 @@
     <link rel="icon" href="{{ url_for('static', filename='slike/ikona_food.png') }}">
 </head>
 <body>
+    <div id="slikca_sredina">
+        <a href="/"><img src="../static/slike/logo.png" alt="logotip" width="50%"></a>
+    </div>
+    
     <a href="/">Domov</a>
     <h1>Prijavite se!</h1>
 
@@ -16,7 +20,12 @@
         <input type="password" id="geslo" placeholder="Vnesite geslo" required><br>
     </form>
     <br>
-    <button onclick="login()">Prijavi se</button><br>
+
+    <div id="sredina">
+        <button onclick="login()">Prijavi se</button><br>
+    </div>
+
+
 
     <div id="output"></div>
     <br>

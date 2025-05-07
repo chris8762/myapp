@@ -1,6 +1,4 @@
-a:visited {color: white}
-
-/* Reset in osnova */
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -9,124 +7,452 @@ a:visited {color: white}
 }
 
 body {
-    background-color: #1e1e1e;
-    color: #f2f2f2;
+    background-color: #121212;
+    color: #e0e0e0;
     line-height: 1.6;
     padding: 20px;
-    margin-left: 10px;
-}
-
-/* Navigacija */
-nav {
-    background-color: #2a2a2a;
-    padding: 15px 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav a {
-    color: #f2f2f2;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-nav a:hover {
-    color: #64d790;
-}
-
-/* Glavna vsebina */
-.container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
-    background-color: #2c2c2c;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Naslovi */
-h1, h2, h3 {
+/* Common Home Link */
+body > a:first-of-type {
+    display: inline-block;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    border-left: 3px solid #64d790;
+    transition: all 0.3s ease;
+}
+
+body > a:first-of-type:hover {
+    background-color: #333333;
     color: #64d790;
+    transform: translateX(3px);
+}
+
+/* Fix body structure for pages with logo outside body */
+html, body {
+    min-height: 100%;
+    background-color: #121212;
+}
+
+html > div:first-of-type {
+    background-color: #121212;
+    padding-top: 20px;
     margin-bottom: 20px;
 }
 
-/* Obrazci */
-form {
-    display: flex;
-    flex-direction: column;
+html > div:first-of-type img {
+    max-width: 180px;
+    height: auto;
+    display: block;
+    margin-left: 20px;
 }
 
-input, textarea, select {
-    background-color: #3b3b3b;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 15px;
+/* User Auth Status */
+body > p {
+    background-color: #1e1e1e;
+    padding: 8px 15px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 20px;
 }
 
-input:focus, textarea:focus, select:focus {
-    outline: 2px solid #64d790;
+body > p a {
+    color: #64d790;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 10px;
+    transition: color 0.2s;
 }
 
-/* Gumbi */
-button {
+body > p a:hover {
+    color: #4cb377;
+    text-decoration: underline;
+}
+
+/* Main Title */
+h1 {
+    color: #64d790;
+    font-size: 2.5rem;
+    margin: 20px 0 30px 0;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(100, 215, 144, 0.3);
+    letter-spacing: 1px;
+}
+
+/* Index page specific containers */
+#index {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+}
+
+#index > a {
+    display: inline-block;
     background-color: #64d790;
-    color: #1e1e1e;
-    border: none;
-    padding: 10px 15px;
+    color: #121212;
+    padding: 10px 18px;
+    margin-bottom: 15px;
+    text-decoration: none;
+    font-weight: bold;
     border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+#index > a:hover {
+    background-color: #4cb377;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 179, 119, 0.2);
+}
+
+/* Navigation Lists in the index container */
+#index ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+#index ul li {
+    margin-bottom: 10px;
+}
+
+#index ul li a {
+    display: block;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 6px;
+    border-left: 4px solid #64d790;
+    transition: all 0.3s ease;
+}
+
+#index ul li a:hover {
+    background-color: #333333;
+    color: #64d790;
+    transform: translateX(5px);
+}
+
+/* Sub Headings */
+h2 {
+    color: #e0e0e0;
+    font-size: 1.5rem;
+    margin: 0 0 25px 0;
+    text-align: center;
+    font-weight: normal;
+    opacity: 0.85;
+}
+
+/* Main Navigation Lists on Homepage */
+body > ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin: 30px auto;
+    max-width: 1000px;
+}
+
+body > ul li {
+    margin-bottom: 10px;
+}
+
+body > ul li a {
+    display: block;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    padding: 14px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    border-left: 4px solid #64d790;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+body > ul li a:hover {
+    background-color: #333333;
+    color: #64d790;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    ul {
+        grid-template-columns: 1fr;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    div:first-of-type img {
+        max-width: 40%;
+    }
+    
+    form {
+        padding: 15px;
+    }
+    
+    input, select, textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    body > input[type="number"],
+    body > input[type="text"],
+    body > button {
+        max-width: 100%;
+    }
+    
+    table {
+        font-size: 14px;
+    }
+    
+    th, td {
+        padding: 8px 10px;
+    }
+}
+
+/* Form Elements and Form Layout */
+form {
+    background-color: #1e1e1e;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+}
+
+input, select, textarea, button {
+    background-color: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    color: #e0e0e0;
+    padding: 12px 15px;
+    border-radius: 5px;
+    margin-bottom: 0;
+    width: 100%;
+    font-size: 16px;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #64d790;
+    box-shadow: 0 0 0 2px rgba(100, 215, 144, 0.2);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364d790' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+button, input[type="submit"] {
+    background-color: #64d790;
+    color: #121212;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s;
+    padding: 12px 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    margin-top: 10px;
 }
 
-button:hover {
-    background-color: #00a3d4;
+button:hover, input[type="submit"]:hover {
+    background-color: #4cb377;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 179, 119, 0.2);
 }
 
-table {
-    border-collapse: collapse;
-    width: 100%;
-    max-width: 600px;
+form br {
+    display: block;
+    content: "";
+    margin-top: 15px;
+}
+
+/* Search Form Group */
+body > input[type="text"] + button {
+    display: inline-block;
+    width: auto;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+body > input[type="text"] {
+    display: inline-block;
+    width: 300px;
+    max-width: calc(100% - 140px);
+    vertical-align: middle;
+    margin-bottom: 20px;
+}
+
+/* Output containers - General */
+#output, [id^="output"] {
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-radius: 8px;
     margin-top: 20px;
-    background-color: #747474;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-height: 30px;
+    word-wrap: break-word;
 }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px 12px;
-    text-align: left;
+#output {
+    border-left: 4px solid #64d790;
+    min-height: 50px;
+}
+
+#output1 {
+    font-size: 1.5rem;
+    color: #64d790;
+    font-weight: bold;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+}
+
+#output2 img {
+    max-width: 100%;
+    height: auto;
+    margin: 15px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#output3 {
+    background-color: #242424;
+}
+
+#output3 ul {
+    display: block;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+#output3 li {
+    margin-bottom: 5px;
+    border: none;
+}
+
+#output4 {
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+thead {
+    background-color: #232323;
 }
 
 th {
-    background-color: #64d790;
-    color: white;
+    background-color: #2a2a2a;
+    color: #64d790;
+    text-align: left;
+    padding: 14px 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #333;
+}
+
+td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #333;
+}
+
+tr:last-child td {
+    border-bottom: none;
 }
 
 tr:nth-child(even) {
-    background-color: #747474;
+    background-color: #1a1a1a;
 }
 
+tr:hover {
+    background-color: #252525;
+}
 
-/* Obvestila ali napake */
-.alert {
-    background-color: #ff4c4c;
-    color: white;
-    padding: 10px;
-    border-radius: 6px;
+/* Calculator Page Styles */
+body > input[type="number"] {
+    margin-bottom: 10px;
+    max-width: 350px;
+}
+
+body > p {
+    color: #9e9e9e;
+    font-size: 0.9rem;
+    margin: 5px 0;
+    font-style: italic;
+}
+
+/* Lists in output areas */
+#output ul {
+    display: block;
+    list-style-type: none;
+    margin: 15px 0;
+    padding: 0;
+}
+
+#output li {
+    margin: 8px 0;
+    padding: 6px 10px;
+    background-color: #252525;
+    border-radius: 5px;
+}
+
+#output h2 {
+    color: #64d790;
+    margin: 0 0 15px 0;
+    font-size: 1.4rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+/* Button spacing for pages with multiple inputs */
+body > button {
+    margin-top: 10px;
     margin-bottom: 15px;
+    max-width: 350px;
 }
 
-/* Odzivnost */
-@media (max-width: 600px) {
-    nav {
-        flex-direction: column;
-    }
+#sredina {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+    width: 220px;
+
+
+}
+
+#slikca_sredina {
+    text-align: center;
+    margin-bottom: 20px;
+
 }
