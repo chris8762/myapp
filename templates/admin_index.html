@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nadzorna plošča</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='slike/ikona_food.png') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
 
 </head>
 
 <body>
 
     <div id="slikca_sredina">
-        <a href="/"><img src="../static/slike/logo.png" alt="logotip" width="50%"></a>
+        <a href="/"><img src="../static/slike/logotip.png" alt="logotip" width="50%"></a>
     </div>
 
     {% if username %}
@@ -36,7 +36,7 @@
             <li><a href="/kalkulator">Kalkulator</a></li>
             <li><a href="/zdravi">Zdravi obrok</a></li>
             <li><a href="/tecaji">Kuharski tecaji</a></li>
-            <li><a href="/dodajRecept">Dodaj svoj recept</a></li>
+            <li><a href="/dodajRecept">Predlagaj svoj recept</a></li>
             <li><a href="/info">Dobi info o sestavinah</a></li>
             <li><a href="/pretvori">Pretvori enote</a></li>
             <li><a href="/login">Prijava</a></li>

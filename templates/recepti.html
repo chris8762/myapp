@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Seznam receptov</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona_food.png') }}">
+</head>
+<body>
+    <a href="/dashboard">Nadzorna plošča</a>
+
+    <h1>Seznam predlaganih receptov</h1>
+<table>
+    <tr>
+        <th>Naslov</th>
+        <th>Sestavine</th>
+        <th>Navodila</th>
+        <th>Izbriši</th>
+    </tr>
+    {% for recept in recepti %}
+    <tr>
+        <td>{{ recept[1] }}</td>
+        <td>{{ recept[2] }}</td>
+        <td>{{ recept[3] }}</td>
+        <td>
+            <form action="/izbrisi_recept/{{ recept[0] }}" method="POST">
+                <button type="submit">Izbriši</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

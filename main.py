@@ -4,7 +4,6 @@ from flask import Flask, render_template, jsonify, request, redirect, session
 import random
 import requests
 import sqlite3
-import os
 
 
 conn = sqlite3.connect('users.db')
@@ -119,7 +118,8 @@ def dashboard():
         else:
             return render_template("index.html", username=username)
         
-
+    else:
+        return redirect("/login")
 
 
 @app.route("/uporabniki")
@@ -138,6 +138,26 @@ def uporabniki():
         else:
             return render_template("index.html", username=username)
 
+    else:
+        return redirect("/login")
+
+@app.route("/recepti")
+def recepti():
+    if "username" in session:
+        username = session["username"]
+        if  username == "admin":
+            conn = sqlite3.connect('recepti.db')
+            c = conn.cursor()
+            c.execute("SELECT id, naslov, sestavine, navodila FROM recepti")
+            recept = c.fetchall()
+            conn.close()
+            return render_template("recepti.html", recepti=recept)
+        
+        else:
+            return render_template("index.html", username=username)
+
+    else:
+        return redirect("/login")
 
 
 @app.route("/izbrisi/<id>", methods=["POST"])
@@ -155,6 +175,17 @@ def izbrisi(id):
     else:
         return render_template("index.html", username=username)
 
+
+@app.route("/izbrisi_recept/<int:id>", methods=["POST"])
+def izbrisi_recept(id):
+    if "username" in session and session["username"] == "admin":
+        with sqlite3.connect('recepti.db') as conn:
+            c = conn.cursor()
+            c.execute("DELETE FROM recepti WHERE id = ?", (id,))
+            conn.commit()
+        return redirect("/recepti")  
+    else:
+        return redirect("/login")  
 
 #---------------druge strani-------------------
 #------------------------------------------------------
@@ -344,12 +375,6 @@ def getZdravi():
 
     return jsonify({'recipes': sez_recipes})
 
-
-    #kako dobit recept preko ID-jev
-    #recept_url = f"https://api.spoonacular.com/recipes/{id}/information?apiKey={api2}"
-    #recept = requests.get(recept_url).json()
-    #print(recept)
-
 @app.route("/zdravi")
 def zdravi():
     return render_template("zdravi_obrok.html")
@@ -388,7 +413,7 @@ def getDodajRecept():
     conn.commit()
     conn.close()
 
-    return jsonify({"message": "Recept uspešno dodan!"})
+    return jsonify({"message": "Recept uspešno oddan v pregled!"})
 
 
 @app.route("/dodajRecept")
