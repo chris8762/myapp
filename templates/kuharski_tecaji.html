@@ -5,16 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuharski tecaji</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='slike/ikona_food.png') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
+
+    <style>
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            color: #333;
+            background-color: #64d790;
+        }
+        a {
+            color: #64d790;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+
 </head>
 <body>
     <div id="slikca_sredina">
-        <a href="/"><img src="../static/slike/logo.png" alt="logotip" width="50%"></a>
+        <a href="/"><img src="../static/slike/logotip.png" alt="logotip" width="40%"></a>
     </div>
 
     <a href="/">Domov</a>
-    <h1>Prijavite se na kuharske tecaje</h1>
+    <h1>Prijavite se na kuharske tečaje</h1>
     
+<table>
+        <thead>
+            <tr>
+                <th>Ime tečaja</th>
+                <th>Organizator</th>
+                <th>Povezava</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Kuharski tečaji</td>
+                <td>Gastrofuzija</td>
+                <td><a href="https://www.gastrofuzija.si/kuharski-tecaji" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Kulinarične delavnice</td>
+                <td>Jezeršek gostinstvo</td>
+                <td><a href="https://www.jezersek.si/akademija" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Kuharski tečaj</td>
+                <td>Kuharske iskrice (BIC LJ)</td>
+                <td><a href="https://www.bic-lj.si/tecaji/kuharske-iskrice" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Kuharski tečaji</td>
+                <td>Pavus</td>
+                <td><a href="https://www.pavus.si/dogodki" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Tečaji</td>
+                <td>Šola okusov (VIVI)</td>
+                <td><a href="https://www.solaokusov.si/tecaji" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Kuharski tečaj: Osnove kuhanja</td>
+                <td>Kuhaj kot chef</td>
+                <td><a href="https://kuhajkotchef.si/Tečaji" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Online kuharski tečaji z Binetom Volčičem</td>
+                <td>Bine Volčič</td>
+                <td><a href="https://binevolcic.si" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Kuharska delavnica s chefom Agom Špacapanom</td>
+                <td>Špacapanova hiša</td>
+                <td><a href="https://www.spacapan.si/catering" target="_blank">Povezava</a></td>
+            </tr>
+        </tbody>
+    </table>
+
 
 </body>
 </html>

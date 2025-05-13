@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='slike/ikona_food.png') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
 </head>
 <body>
     <div id="slikca_sredina">
-        <a href="/"><img src="../static/slike/logo.png" alt="logotip" width="50%"></a>
+        <a href="/"><img src="../static/slike/logotip.png" alt="logotip" width="40%"></a>
     </div>
 
     <a href="/">Domov</a>
@@ -61,6 +61,7 @@
                     kolicina6: kolicina6.value
 
                 },
+                //output narjen s chatom
                 success: function (result) {
                     var html = "<h2>Vnesene količine:</h2><ul>";
                     html += "<li>Količina 1: &nbsp;&nbsp;" + kolicina1.value + "</li>";
