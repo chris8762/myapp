@@ -4,6 +4,8 @@ from flask import Flask, render_template, jsonify, request, redirect, session
 import random
 import requests
 import sqlite3
+import bcrypt
+
 
 
 conn = sqlite3.connect('users.db')
@@ -48,6 +50,10 @@ def register():
         mail = request.form.get("mail")
         geslo = request.form.get("geslo")
 
+        geslo_utf = geslo.encode('utf-8')
+        hash_geslo = bcrypt.hashpw(geslo_utf, bcrypt.gensalt()).decode('utf-8')
+
+
         conn = sqlite3.connect('users.db')
         c = conn.cursor()
 
@@ -61,7 +67,7 @@ def register():
             conn.close()
             return jsonify({"message": "Registracija uspesna!", "povezava": "/register"})
 
-        c.execute("INSERT INTO users (username, mail, geslo) VALUES (?, ?, ?)", (username, mail, geslo))
+        c.execute("INSERT INTO users (username, mail, geslo) VALUES (?, ?, ?)", (username, mail, hash_geslo))
         conn.commit()
         conn.close()
         return jsonify({"message": "Registracija uspesna!", "povezava": "/login"})
@@ -76,29 +82,28 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         geslo = request.form.get("geslo")
-        print(username, geslo)
+
+        geslo_utf = geslo.encode('utf-8')
+
         baza = sqlite3.connect('users.db')
         c = baza.cursor()
-
-
-        c.execute("SELECT username, geslo FROM users WHERE username = ? AND geslo = ?", (username, geslo))
+        c.execute("SELECT username, geslo FROM users WHERE username = ?", (username,))
         user = c.fetchone()
-
         baza.close()
 
-        if user != None:
-            session["username"] = user[0]
-            if session["username"] == user[0]:
-                if geslo == user[1]:
-                    #print(username, user[0])
-                    #print(geslo, user[1])
-                    return jsonify({"message": "Prijava uspešna!", "povezava": "/"})
-                else:
-                    return jsonify({"message": "Napačno geslo.", "povezava": "/login"})
+        if user is not None:
+            db_username = user[0]
+            db_hash = user[1] 
+
+            if bcrypt.checkpw(geslo_utf, db_hash.encode('utf-8')):  
+
+                session["username"] = db_username
+                return jsonify({"message": "Prijava uspešna!", "povezava": "/"})
             else:
-                return jsonify({"message": "Napačno uporabniško ime ali geslo.", "povezava": "/login"})
+                return jsonify({"message": "Napačno geslo.", "povezava": "/login"})
         else:
             return jsonify({"message": "Napačno uporabniško ime ali geslo.", "povezava": "/login"})
+
 
 
     else:
