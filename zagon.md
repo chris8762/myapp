@@ -1,6 +1,6 @@
 # 🍲 Spletna aplikacija Gurmanski svet
 
-Ustvari, shrani in išči recepte.
+Išči recepte in uporabi priročne funkcije.
 
 ---
 
