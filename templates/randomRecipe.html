@@ -21,6 +21,7 @@
     <input type="text" id="vrsta" placeholder="Vrsta kuhinje">
     <button onclick="getRandomRecipe()">Dobi recept</button>
 
+    <div id="output0" style="color: red;"></div>
     <div id="output1"></div>
     <div id="output2"></div>
     <div id="output3"></div>
@@ -41,11 +42,12 @@
                     vrsta: vrsta.value
                 },
                 success: function (result) {
-                    
+                    output0.innerHTML = result.message;
                     output1.innerHTML = result.ime;
                     output2.innerHTML = result.slika;
                     output3.innerHTML = result.ingredients;
                     output4.innerHTML = result.navodila;
+
                     
 
                 }

@@ -61,13 +61,20 @@ function getZdravi() {
         },
     //output narjen s chatom
         success: function (result) {
+            var output = document.getElementById("output");
+
+                if (!result.recipes) {
+                output.innerHTML = result.message;
+                return;
+            }
+        
             var recipes = result.recipes;
             var formattedOutput = "<ul>";
-
+            
             recipes.forEach(function(recipe) {
-                var roundedProtein = recipe.protein.toFixed(1);
-                var roundedCalories = recipe.calories.toFixed(1);
-
+                var roundedProtein = recipe.protein?.toFixed(1) ?? "ni podatka";
+                var roundedCalories = recipe.calories?.toFixed(1) ?? "ni podatka";
+            
                 formattedOutput += "<li>";
                 formattedOutput += recipe.title + "<br>";
                 formattedOutput += '<span style="color: #64d790;">Recipe ID: ' + recipe.id + '</span><br>';
@@ -75,10 +82,11 @@ function getZdravi() {
                 formattedOutput += "Calories: " + roundedCalories + " kcal<br>";
                 formattedOutput += "</li>";
             });
-
+        
             formattedOutput += "</ul>";
             output.innerHTML = formattedOutput;
         }
+
     });
 }
     </script>

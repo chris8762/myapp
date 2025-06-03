@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Stran ni najdena</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+</head>
+<body>
+    <div id="slikca_sredina">
+        <a href="/"><img src="{{ url_for('static', filename='slike/logotip.png') }}" alt="logotip" width="40%"></a>
+    </div>
+
+    <h1>404 - Stran ni najdena</h1>
+    <div id="slikca_sredina">
+        <p>Ups! Stran, ki jo iščeš, ne obstaja.</p><br>
+        <br>
+        <a href="/">Nazaj na začetno stran</a>
+    </div>
+</body>
+</html>

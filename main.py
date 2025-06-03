@@ -11,7 +11,6 @@ import bcrypt
 conn = sqlite3.connect('users.db')
 c = conn.cursor()
 
-
 c.execute('''CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT,
@@ -42,6 +41,13 @@ conn.close()
 
 app = Flask(__name__)
 app.secret_key = "1234"
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
+
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -125,7 +131,6 @@ def dashboard():
         
     else:
         return redirect("/login")
-
 
 @app.route("/uporabniki")
 def uporabniki():
@@ -223,24 +228,28 @@ def getRandomRecipe():
     url = f"https://api.spoonacular.com/recipes/complexSearch?query={sestavine}&cuisine={vrsta}&apiKey=32be0b921f2a4e7fac0f85279c03b8cb"
 
     call = requests.get(url).json()
-    get_recept = random.choice(call["results"])
-    id_recepta = get_recept["id"]
 
-    recept_url = f"https://api.spoonacular.com/recipes/{id_recepta}/information?apiKey=32be0b921f2a4e7fac0f85279c03b8cb"
+    if call["totalResults"] == 0:
+        return jsonify({"message": "Recept s takimi sestavinami ne obstaja."})
+    
+    else:
+        get_recept = random.choice(call["results"])
+        id_recepta = get_recept["id"]
 
-    recept = requests.get(recept_url).json()
+        recept_url = f"https://api.spoonacular.com/recipes/{id_recepta}/information?apiKey=32be0b921f2a4e7fac0f85279c03b8cb"
 
-    ing = []
-    amount = []
-    unit = []
-    for ingredient in recept["extendedIngredients"]:
-        if "nameClean" in ingredient:
-            amount.append(ingredient["original"])
+        recept = requests.get(recept_url).json()
+
+        amount = []
+
+        for ingredient in recept["extendedIngredients"]:
+            if "nameClean" in ingredient:
+                amount.append(ingredient["original"])
 
 
-    #print(ing,amount )
+        #print(ing,amount )
 
-    return jsonify({"slika": f"<img src={recept["image"]}>",
+        return jsonify({"slika": f"<img src={recept["image"]}>",
                     "ime": recept["title"],
                     "ingredients": amount,
                     "navodila": recept["instructions"]})
@@ -325,17 +334,6 @@ def kalkulator():
     return render_template("kalkulator.html")
 
 
-@app.route("/getAi")
-def getAi():
-    return "x"
-
-
-@app.route("/ai")
-def ai():
-    return render_template("ai_pomocnik.html")
-
-
-
 @app.route("/getZdravi")
 def getZdravi():
     proteini = request.args.get("proteini")
@@ -358,27 +356,32 @@ def getZdravi():
     url2 = f"https://api.spoonacular.com/recipes/complexSearch?minProtein={proteini}&maxCalories={kalorije}&minFat={mascobe}&apiKey={api2}"
     call = requests.get(url2).json()
 
-    sez_recipes = []
+    print(call)
 
-    for recipe in call["results"]:
-        recipe_info = {
-            "id": recipe["id"],
-            "title": recipe["title"],
-            "calories": None,
-            "protein": None
-        }
+    if call["totalResults"] == 0:
+        return jsonify({'message': "Ustreznih receptov ni bilo najdenih."})
+    
+    else:
+        sez_recipes = []
 
-        for nutrient in recipe["nutrition"]["nutrients"]:
-            if nutrient["name"] == "Calories":
-                recipe_info["calories"] = nutrient["amount"]
-            if nutrient["name"] == "Protein":
-                recipe_info["protein"] = nutrient["amount"]
+        for recipe in call["results"]:
+            recipe_info = {
+                "id": recipe["id"],
+                "title": recipe["title"],
+                "calories": None,
+                "protein": None
+            }
 
-        sez_recipes.append(recipe_info)
+            for nutrient in recipe["nutrition"]["nutrients"]:
+                if nutrient["name"] == "Calories":
+                    recipe_info["calories"] = nutrient["amount"]
+                if nutrient["name"] == "Protein":
+                    recipe_info["protein"] = nutrient["amount"]
 
-    #(sez_recipes)
+            sez_recipes.append(recipe_info)
 
-    return jsonify({'recipes': sez_recipes})
+        #(sez_recipes)
+        return jsonify({'recipes': sez_recipes})
 
 @app.route("/zdravi")
 def zdravi():
@@ -525,8 +528,8 @@ def getPretvori():
     url = f"https://api.spoonacular.com/recipes/convert?ingredientName={ing}&sourceAmount={amount}&sourceUnit={enota}&targetUnit={pretvorjena}&apiKey={api_key}"
 
     call = requests.get(url).json()
-    #print(call)
 
+    #print(call)
     return call["answer"]
 
 
